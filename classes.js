@@ -31,7 +31,19 @@
 
 //Code Here
 
+class Employee {
+  constructor(first_name, last_name, email, age) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
+  }
+  makeWidget() {
+    return this.first_name + " " + this.last_name + " Widget";
+  }
+}
 
+const empl = new Employee("Rajit", "Nair", "email@email.com", 33);
 
 ////////// PROBLEM 2 //////////
 
@@ -51,7 +63,26 @@
 
 //Code Here
 
+class Manager {
+  constructor(first_name, last_name, email, age) {
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
+    this.reports = [];
+  }
+  makeWidget() {
+    return this.first_name + " " + this.last_name + " Widget";
+  }
+  hire(newEmp) {
+    this.reports.push(newEmp);
+  }
+  fire(empIdx) {
+    this.reports.splice(empIdx, 1);
+  }
+}
 
+const mgr = new Manager("Manager ", "One", "manager@one.com", 45);
 
 ////////// PROBLEM 3 //////////
 
@@ -61,7 +92,6 @@
   but they also have the following additional properties:
     - title - default 'Not a manager'
     - bonus - default 0
-
   When employees are added or removed we need to check and update their title. Their titles are as follows:
     0 : Not a manager
     1-3 : Barely Manager
@@ -76,8 +106,53 @@
 */
 
 //Code Here
+class ProgressiveManager extends Manager {
+  constructor(first_name, last_name, email, age) {
+    super();
+    this.first_name = first_name;
+    this.last_name = last_name;
+    this.email = email;
+    this.age = age;
+    this.reports = [];
 
+    this.title = "Not a manager";
+    this.bonus = 0;
+  }
 
+  updateTitle() {
+    if (this.reports.length === 0) {
+      this.title = "Not a manager";
+    } else if (this.reports.length > 0 && this.reports.length <= 3) {
+      this.title = "Barely Manager";
+    } else if (this.reports.length > 3 && this.reports.length <= 10) {
+      this.title = "Mostly Manager";
+    } else if (this.reports.length > 10 && this.reports.length <= 50) {
+      this.title = "Manager";
+    } else if (this.reports.length > 50 && this.reports.length <= 100) {
+      this.title = "Manager Plus";
+    } else {
+      this.title = "Bestest Manager";
+    }
+  }
+
+  hire(newEmp) {
+    this.reports.push(newEmp);
+    this.updateTitle();
+  }
+
+  fire(empIdx) {
+    this.reports.splice(empIdx, 1);
+    this.bonus += 100;
+    this.updateTitle();
+  }
+}
+
+const newManager = new ProgressiveManager(
+  "Manager ",
+  "One",
+  "manager@one.com",
+  45
+);
 
 ////////// PROBLEM 4 - Black Diamond //////////
 
@@ -103,5 +178,47 @@
 */
 
 //Code Here
+class Machine {
+  constructor() {
+    this.widgets_made_count = 0;
+    this.wear_and_tear_count = 0;
+    this.needs_reboot = false;
 
+    // this.makeWidgets = function(inCount) {
+    //   this.widgets_made_count += inCount;
+    //   this.wear_and_tear_count = Math.floor(this.widgets_made_count / 50);
+    // };
 
+    // this.fixMachine = function() {
+    //   this.needs_reboot = true;
+    // };
+
+    // this.reboot = function(cb) {
+    //   this.wear_and_tear_count -= 10;
+    //   this.needs_reboot = false;
+    //   return cb();
+    // };
+
+    // this.cb = cb;
+    function reboot(cb) {
+      this.wear_and_tear_count -= 10;
+      this.needs_reboot = false;
+      return this.cb();
+    }
+  }
+
+  makeWidgets(inCount) {
+    this.widgets_made_count += inCount;
+    this.wear_and_tear_count = Math.floor(this.widgets_made_count / 50);
+  }
+
+  fixMachine() {
+    this.needs_reboot = true;
+  }
+
+  reboot(cb) {
+    this.wear_and_tear_count -= 10;
+    this.needs_reboot = false;
+    return cb();
+  }
+}

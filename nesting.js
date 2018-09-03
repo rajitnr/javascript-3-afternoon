@@ -11,34 +11,34 @@
 // Do not edit the code below.
 var employees = [
   {
-    "firstName": "Von",
-    "lastName": "Budibent",
-    "email": "vbudibent0@163.com",
-    "department": "Sales"
+    firstName: "Von",
+    lastName: "Budibent",
+    email: "vbudibent0@163.com",
+    department: "Sales"
   },
   {
-    "firstName": "Catherina",
-    "lastName": "Swalowe",
-    "email": "cswalowe1@example.com",
-    "department": "Engineering"
+    firstName: "Catherina",
+    lastName: "Swalowe",
+    email: "cswalowe1@example.com",
+    department: "Engineering"
   },
   {
-    "firstName": "Theo",
-    "lastName": "Trill",
-    "email": "ttrill2@sina.com.cn",
-    "department": "Services"
+    firstName: "Theo",
+    lastName: "Trill",
+    email: "ttrill2@sina.com.cn",
+    department: "Services"
   },
   {
-    "firstName": "Elsy",
-    "lastName": "McCrorie",
-    "email": "emccrorie3@netscape.com",
-    "department": "Legal"
+    firstName: "Elsy",
+    lastName: "McCrorie",
+    email: "emccrorie3@netscape.com",
+    department: "Legal"
   },
   {
-    "firstName": "Lorie",
-    "lastName": "Handsheart",
-    "email": "lhandsheart4@fotki.com",
-    "department": "Research and Development"
+    firstName: "Lorie",
+    lastName: "Handsheart",
+    email: "lhandsheart4@fotki.com",
+    department: "Research and Development"
   }
 ];
 // Do not edit the code above.
@@ -52,7 +52,24 @@ var employees = [
 
 //Code Here
 
-
+const employeeUpdater = () => {
+  // employees.forEach(function(employee) {
+  //   if (employee["firstName"] === "Theo"){
+  //     employees.splice();
+  //   }
+  //   if (employee["firstName"] === "Lorie"){
+  //     employee["department"] = "HR";
+  //   }
+  // }
+  // return employees;
+  return employees.filter(employee => {
+    if (employee.firstName === "Lorie") {
+      employee.department = "HR";
+    }
+    return employee.firstName !== "Theo";
+  });
+};
+// console.log(employeeUpdater());
 
 ////////// PROBLEM 2 //////////
 
@@ -61,7 +78,7 @@ var workplaceAccidents = [12, 56, 44, 3, 29, 56, 56, 3, 7, 12];
 // Do not edit the code above.
 
 /*
-  The array above represents IDs tied to reported workplace accidents. 
+  The array above represents IDs tied to reported workplace accidents.
   An employee accidentally entered in duplicates to array, making it look as though there are more accidents this year than there actually are.
     1. Write a function called 'removeDuplicates' that will remove all duplicate entries in the workplaceAccidents array.
     2. Use nested for loops to check for duplicate numbers, and then remove the duplicates from the array.
@@ -69,64 +86,65 @@ var workplaceAccidents = [12, 56, 44, 3, 29, 56, 56, 3, 7, 12];
 */
 
 //Code Here
-
-
+const removeDuplicates = () => {
+  return workplaceAccidents.filter((accidentID, pos) => {
+    return workplaceAccidents.indexOf(accidentID) === pos;
+  });
+};
 
 ////////// PROBLEM 3 //////////
 
 // Do not edit the code below.
 var cat = {
-  name: 'Fluffy',
+  name: "Fluffy",
   catFriends: [
     {
-      name: 'Grumpy',
-      activities: ['be grumpy', 'eat food']
-    }, 
+      name: "Grumpy",
+      activities: ["be grumpy", "eat food"]
+    },
     {
-      name: 'Lazy Bones',
-      activities: ['sleep', 'pre-sleep naps']
+      name: "Lazy Bones",
+      activities: ["sleep", "pre-sleep naps"]
     }
   ]
-}
+};
 // Do not edit the code above.
 
 /*
-  Fluffy has two friends, Grumpy and Lazy Bones. 
+  Fluffy has two friends, Grumpy and Lazy Bones.
     1. Assign the value of Grumpy's 2nd activity to the grumpyActivity variable below.
     2. Assign fluffy2ndFriend the name of Fluffy's 2nd friend.
 */
 
 //Code Here
-var grumpyActivity;
-var fluffy2ndFriend;
-
-
+var grumpyActivity = cat["catFriends"][0]["activities"][1];
+var fluffy2ndFriend = cat["catFriends"][1]["name"];
 
 ////////// PROBLEM 4 //////////
 
 // Do not edit the code below.
 var myCar = {
-  make: 'Toyota',
-  model: 'Corolla',
+  make: "Toyota",
+  model: "Corolla",
   year: 1992,
   accidents: [
     {
-      date: '3/15/93',
-      damage: '$5,000',
+      date: "3/15/93",
+      damage: "$5,000",
       atFaultForAccident: true
     },
     {
-      date: '7/4/98',
-      damage: '$2,200',
+      date: "7/4/98",
+      damage: "$2,200",
       atFaultForAccident: true
     },
     {
-      date: '6/22/99',
-      damage: '$7,900',
+      date: "6/22/99",
+      damage: "$7,900",
       atFaultForAccident: true
     }
   ]
-}
+};
 // Do not edit the code above.
 
 /*
@@ -140,17 +158,33 @@ var myCar = {
 
 //Code Here
 
+// const recordCleaner = ({make, model, accidents}) => {
+//   accidents.map({date,damage,atFaultForAccident} => {data,damage,false})
+//   return {make,model,accidents}
+// }
 
+const recordCleaner = () => {
+  var { make, model, year, accidents } = myCar;
+  myCar.accidents = accidents.map(({ date, damage, atFaultForAccident }) => ({
+    date: date,
+    damage: damage,
+    atFaultForAccident: false
+  }));
+  // return { make, model, year, accidents };
+  // return {make,model,accidents};
+};
+
+// console.log(recordCleaner()["accidents"]["atFaultForAccident"]);
 
 ////////// PROBLEM 5 //////////
 
 // Do not edit the code below.
-var numsArr = [ [1, 2, 3, 4], [5, 6], [7, 8, 9, 10, 11]];
+var numsArr = [[1, 2, 3, 4], [5, 6], [7, 8, 9, 10, 11]];
 // Do not edit the code above.
 
 /*
   Above is an array of arrays. Use two for loops.
-    1. Write a function called 'looper'. 
+    1. Write a function called 'looper'.
     2. 'looper' should loop over the arrays.
     3.  If the number is odd, replace it with 'odd'.
         If the number is even, replace it with 'even'.
@@ -158,5 +192,8 @@ var numsArr = [ [1, 2, 3, 4], [5, 6], [7, 8, 9, 10, 11]];
 */
 
 //Code Here
+const looper = () => {
+  return numsArr.map(numArr => numArr.map(num => (num % 2 ? "odd" : "even")));
+};
 
-
+console.log(looper(numsArr));
